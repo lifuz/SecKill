@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="taglibs:standard:1.1.2" type="repository">
+    <properties maven-id="taglibs:standard:1.1.2" />
+    <CLASSES>
+      <root url="jar://G:/repository/standard-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://G:/repository/standard-1.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
