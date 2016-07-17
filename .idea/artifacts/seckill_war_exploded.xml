@@ -32,6 +32,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.2.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.10" />
         </element>
       </element>
       <element id="directory" name="META-INF">
