@@ -1,6 +1,7 @@
 package com.lifuz.seckill.dao;
 
 import com.lifuz.seckill.entity.SuccessKilled;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by lifuz on 2016/7/17.
@@ -19,7 +20,7 @@ public interface SuccessKilledDao {
      * @param seckillId
      * @return
      */
-    SuccessKilled queryByIdWithSeckill(Long seckillId);
+    SuccessKilled queryByIdWithSeckill(@Param("seckillId") Long seckillId,@Param("userPhone") Long userPhone);
 
 
 
