@@ -69,7 +69,6 @@
 <script src="/resources/script/seckill.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
-
         seckill.detail.init({
             seckillId: ${seckill.seckillId},
             startTime: ${seckill.startTime.time},
