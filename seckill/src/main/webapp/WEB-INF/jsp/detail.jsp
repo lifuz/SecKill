@@ -74,6 +74,7 @@
             startTime: ${seckill.startTime.time},
             endTime: ${seckill.endTime.time}
 
+
         });
 
     });
