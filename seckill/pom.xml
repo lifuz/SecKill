@@ -79,7 +79,7 @@
 
         <!--  3.Servlet web 相关依赖 -->
         <dependency>
-            <groupId>tablibs</groupId>
+            <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
