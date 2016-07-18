@@ -94,7 +94,6 @@ public class SeckillController {
                                                      @PathVariable("md5") String md5,
                                                      @CookieValue(value = "phone", required = false) Long phone) {
 
-
         if (phone == null) {
             return new SeckillResult<SeckillExecution>(false, "未注册");
         }
