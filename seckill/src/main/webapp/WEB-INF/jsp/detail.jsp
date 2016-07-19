@@ -16,7 +16,7 @@
     <div class="panel-body">
         <h2 class="text-danger">
             <!-- 显示time图标 -->
-            <span class="glyphicon glyphicon-time" text-center/>
+            <span class="glyphicon glyphicon-time"/>
             <!-- 展示倒计时 -->
             <span class="glyphicon" id="seckill-box"/>
         </h2>
