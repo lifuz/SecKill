@@ -12,15 +12,16 @@
 <div class="container">
     <div class="panel panel-default text-center">
         <div class="panel-heading"><h1>${seckill.name}</h1></div>
+        <div class="panel-body">
+            <h2 class="text-danger">
+                <!-- 显示time图标 -->
+                <span class="glyphicon glyphicon-time"/>
+                <!-- 展示倒计时 -->
+                <span class="glyphicon" id="seckill-box"/>
+            </h2>
+        </div>
     </div>
-    <div class="panel-body">
-        <h2 class="text-danger">
-            <!-- 显示time图标 -->
-            <span class="glyphicon glyphicon-time"/>
-            <!-- 展示倒计时 -->
-            <span class="glyphicon" id="seckill-box"/>
-        </h2>
-    </div>
+
 </div>
 
 <!-- 登录弹出层，输入电话 -->
@@ -28,8 +29,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" text-center>
-                    <span class="glyphicon glyphicon-phone"/>秒杀电话:
+                <h3 class="modal-title text-center">
+                    <span class="glyphicon glyphicon-phone"></span>秒杀电话:
                 </h3>
             </div>
 
@@ -62,17 +63,17 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-<script src="http://cdn.bootcss.com/jquery-countdown/2.0.1/jquery.countdown.min.js"></script>
-
 <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="http://cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
 
 <script src="/resources/script/seckill.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
         seckill.detail.init({
-            seckillId: ${seckill.seckillId},
-            startTime: ${seckill.startTime.time},
-            endTime: ${seckill.endTime.time}
+            seckillId : ${seckill.seckillId},
+            startTime : ${seckill.startTime.time},
+            endTime :${seckill.endTime.time}
 
 
         });

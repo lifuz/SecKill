@@ -67,9 +67,11 @@ public class SeckillController {
             produces = {"application/json;charset=UTF-8"}
     )
     @ResponseBody
-    public SeckillResult<Exposer> exposer(Long seckillId) {
+    public SeckillResult<Exposer> exposer(@PathVariable("seckillId")Long seckillId) {
 
         SeckillResult<Exposer> result = null;
+
+//        logger.error(seckillId + "");
 
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
@@ -124,7 +126,8 @@ public class SeckillController {
 
     }
 
-    @RequestMapping(value = "time/now", method = RequestMethod.GET)
+    @RequestMapping(value = "/time/now", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
     public SeckillResult<Long> time() {
         Date nowTime = new Date();
         return new SeckillResult<Long>(true, nowTime.getTime());
