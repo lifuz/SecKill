@@ -12,7 +12,7 @@ var seckill = {
             return '/seckill/' + seckillId + '/exposer';
         },
         execution: function (seckillId, md5) {
-            return 'seckill/' + seckillId + '/' + md5 + '/execution';
+            return '/seckill/' + seckillId + '/' + md5 + '/execution';
         }
 
     },
@@ -35,14 +35,19 @@ var seckill = {
                         $(this).addClass('disabled');
 
                         console.log("seckillId handle:" + killUrl);
-                        $.post(seckill.URL.execution(seckillId, md5), {}, function (result) {
-                            if (result && result['success']) {
-                                var killResult = result['data'];
-                                var state = killResult['state'];
-                                var stateInfo = killResult['stateInfo'];
-                                node.html('<span class="label label-success">' + stateInfo + ' </span>');
-                            }
-                        });
+                       $.post(killUrl,{},function (result) {
+
+                           console.log("seckillId handle:" + result);
+                           if (result && result['success']) {
+                               var killResult = result['data'];
+                               var state = killResult['state'];
+                               var stateInfo = killResult['stateInfo'];
+                               node.html('<span class="label label-success">' + stateInfo + ' </span>');
+                           }
+
+                       });
+
+                        console.log("seckillId handle:" + killUrl);
 
                     });
 
