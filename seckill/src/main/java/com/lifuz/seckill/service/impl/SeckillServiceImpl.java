@@ -2,6 +2,7 @@ package com.lifuz.seckill.service.impl;
 
 import com.lifuz.seckill.dao.SeckillDao;
 import com.lifuz.seckill.dao.SuccessKilledDao;
+import com.lifuz.seckill.dao.cache.RedisDao;
 import com.lifuz.seckill.dto.Exposer;
 import com.lifuz.seckill.dto.SeckillExecution;
 import com.lifuz.seckill.entity.Seckill;
@@ -39,6 +40,9 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
+
 
     private final String slat = "dkld##$3^5$^5%565#dkdff";
 
@@ -53,11 +57,21 @@ public class SeckillServiceImpl implements SeckillService {
 
     public Exposer exportSeckillUrl(long seckillId) {
 
-        Seckill seckill = seckillDao.queryById(seckillId);
+        //优化点：缓存优化
+        Seckill seckill = redisDao.getSeckill(seckillId);
 
         if (seckill == null) {
-            return new Exposer(false, seckillId);
+
+            seckill = seckillDao.queryById(seckillId);
+
+            if (seckill == null) {
+                return new Exposer(false, seckillId);
+            } else {
+                redisDao.putSeckill(seckill);
+            }
+
         }
+
 
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
@@ -82,29 +96,28 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     /**
-     *使用注解控制事务方法的优点：
+     * 使用注解控制事务方法的优点：
      * 1：开发团队达成一致的约定，明确标注事务方法的编程风格
      * 2：保证事务方法的执行时间尽可能短不要穿插其他的网络操作Rpc/HTTP 请求或者剥离到事务方法外部
      * 3：不是所有的方法都需要事务
-     *
      */
     @Transactional
     public SeckillExecution executeSeckill(Long seckillId, Long userPhone, String md5)
             throws RepeatKillException, SeckillCloseException, SeckillException {
 
-        if(md5 == null || !md5.equals(getMD5(seckillId))){
+        if (md5 == null || !md5.equals(getMD5(seckillId))) {
             throw new SeckillException("seckill data rewrite");
         }
 
         Date nowTime = new Date();
         try {
-            int updateCount = seckillDao.reduceNumber(seckillId,nowTime);
+            int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
 
             if (updateCount <= 0) {
                 throw new SeckillCloseException("sekill is closed");
             } else {
 
-                SuccessKilled successKilled  = new SuccessKilled();
+                SuccessKilled successKilled = new SuccessKilled();
                 successKilled.setSeckillId(seckillId);
                 successKilled.setUserPhone(userPhone);
 
@@ -113,8 +126,8 @@ public class SeckillServiceImpl implements SeckillService {
                 if (insertCount <= 0) {
                     throw new RepeatKillException("seckill repeated");
                 } else {
-                    successKilled = successKilledDao.queryByIdWithSeckill(seckillId,userPhone);
-                    return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS,successKilled);
+                    successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+                    return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);
                 }
 
             }
@@ -126,9 +139,9 @@ public class SeckillServiceImpl implements SeckillService {
 
             throw e2;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
             throw new SeckillException("seckill inner error：" + e.getMessage());
         }
 
