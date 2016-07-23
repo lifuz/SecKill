@@ -72,7 +72,6 @@ public class SeckillServiceImpl implements SeckillService {
 
         }
 
-
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
 
