@@ -49,4 +49,14 @@ public interface SeckillService {
     SeckillExecution executeSeckill(Long seckillId, Long userPhone, String md5)
         throws RepeatKillException,SeckillCloseException,SeckillException;
 
+
+    /**
+     * 执行秒杀操作
+     * @param seckillId
+     * @param userPhone
+     * @param md5
+     */
+    SeckillExecution executeSeckillProcedure(Long seckillId, Long userPhone, String md5)
+            throws RepeatKillException,SeckillCloseException,SeckillException;
+
 }
